@@ -1,0 +1,14 @@
+{
+    "embedColorSuccess": "#00D26A",
+    "embedColorWarning": "FFCC4D",
+    "embedColorError": "FB2F61",
+    
+    "embedErrorMessage": "Une erreur est survenue !",
+    
+    "commandDevOnly": "Cette commande ne peut être utilisé que par les développeurs.",
+    "commandTestMode": "Ceci est en développement et ne peut donc pas être utilisé sur le serveur.",
+    "commandPremiumOnly": "Cette commande ne peut être utilisé que par les membres premiums.",
+
+    "userNoPermissions": "Tu n'as pas assez de permissions pour utiliser cette commande.",
+    "botNoPermissions": "Je n'ai pas assez de permissions pour faire cela sur le serveur."
+}
