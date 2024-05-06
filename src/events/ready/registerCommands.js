@@ -32,7 +32,7 @@ module.exports = async(client) => {
                     console.log(`[COMMAND REGISTERY] Application command ${commandName} has been skipped, since property "deleted" is set to "true".`.grey);
                 }
             } else if (existingCommand) {
-                if (commandComparing(existingCommand, commandOptions)) {
+                if (commandComparing(existingCommand, localCommand)) {
                     await applicationCommands.edit(existingCommand.id, {name: commandName, description: commandDescription, options: commandOptions});
                     console.log(`[COMMAND REGISTERY] Application command ${commandName} has been edited.`.yellow);
                 }
