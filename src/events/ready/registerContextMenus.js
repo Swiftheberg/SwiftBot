@@ -1,21 +1,20 @@
 require('colors');
 
 const { testServerId } = require('../../config.json');
-const commandComparing = require('../../utils/commandComparing');
-const getApplicationCommands = require('../../utils/getApplicationCommands');
-const getLocalCommands = require('../../utils/getLocalCommands');
+const getApplicationContextMenus = require('../../utils/getApplicationCommands');
+const getLocalContextMenus = require('../../utils/getLocalContextMenus');
 
 module.exports = async(client) => {
   try {
-    const localCommands = getLocalCommands();
-    const applicationCommands = await getApplicationCommands(client)//, testServerId);
+    const localContextMenus = getLocalContextMenus();
+    const getApplicationContextMenus = await getApplicationContextMenus(client, testServerId);
 
-    for (const localCommand of localCommands) {
-      const {data, deleted} = localCommand;
+    for (const localContextMenu of localContextMenus) {
+      const { data } = localContextMenu;
+
       const {
-        name: commandName,
-        description: commandDescription,
-        options: commandOptions
+        name: contextMenuName,
+        type: contextMenuType,
       } = data;
 
       const existingCommand  = await applicationCommands.cache.find(
