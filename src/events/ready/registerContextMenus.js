@@ -17,14 +17,14 @@ module.exports = async(client) => {
         type: contextMenuType,
       } = data;
 
-      const existingCommand  = await applicationCommands.cache.find(
-        (cmd) => cmd.name === commandName
+      const existingContextMenu  = await getApplicationContextMenus.cache.find(
+        (cmd) => cmd.name === contextMenuName
       );
 
-      if (deleted) {
-        if (existingCommand) {
-          await applicationCommands.delete(existingCommand.id);
-          console.log(`[COMMAND REGISTERY] Application command ${commandName} has been deleted.`.red);
+      if (existingContextMenu) {
+        if (localContextMenu.deleted) {
+          await getApplicationContextMenus.delete(existingContextMenu.id);
+          console.log(`[CONTEXT MENUS REGISTERY] Application command ${contextMenuName} has been deleted.`.red);
         } else {
           console.log(`[COMMAND REGISTERY] Application command ${commandName} has been skipped, since property "deleted" is set to "true".`.grey);
         }

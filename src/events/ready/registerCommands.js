@@ -11,7 +11,7 @@ module.exports = async(client) => {
     const applicationCommands = await getApplicationCommands(client)//, testServerId);
 
     for (const localCommand of localCommands) {
-      const {data, deleted} = localCommand;
+      const {data} = localCommand;
       const {
         name: commandName,
         description: commandDescription,
@@ -22,28 +22,32 @@ module.exports = async(client) => {
         (cmd) => cmd.name === commandName
       );
 
-      if (deleted) {
-        if (existingCommand) {
+      if (existingCommand) {
+        if (localCommand.deleted) {
           await applicationCommands.delete(existingCommand.id);
           console.log(`[COMMAND REGISTERY] Application command ${commandName} has been deleted.`.red);
-        } else {
-          console.log(`[COMMAND REGISTERY] Application command ${commandName} has been skipped, since property "deleted" is set to "true".`.grey);
-        }
-      } else if (existingCommand) {
+          continue;
+        };
+
         if (commandComparing(existingCommand, localCommand)) {
           await applicationCommands.edit(existingCommand.id, {name: commandName, description: commandDescription, options: commandOptions});
           console.log(`[COMMAND REGISTERY] Application command ${commandName} has been edited.`.yellow);
-        }
+        };
       } else {
+        if (localCommand.deleted) {
+          console.log(`[COMMAND REGISTERY] Application command ${commandName} has been skipped, since property "deleted" is set to "true".`.grey)
+          continue;
+        }
+
         await applicationCommands.create({
           name: commandName,
           description: commandDescription,
           options: commandOptions
         });
         console.log(`[COMMAND REGISTERY] Application command ${commandName} has been registered.`.green);
-      }
-    }
-  } catch(error) {
-    console.error(`[ERROR] An error occured inside the command registery:\n ${error}`);
+      };
+    };
+  } catch(e) {
+    console.error(`[ERROR] An error occured inside the command registery:\n ${e}`);
   }
 }
